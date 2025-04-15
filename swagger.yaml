@@ -14,10 +14,26 @@ paths:
         get: 
             tags: 
             - 'store'
-    /sunglasses/brands
-    /sunglasses/oakley
-    /sunglasses/ray-ban
-    /sunglasses/levis
-    /sunglasses/dkny
+    /sunglasses/brands:
+    /sunglasses/{id}: 
+        get: 
+        summary: Get a specific sunglasses details
+        description: Returns a specific pair of sunglasses
+        parameters: 
+            name: id
+                in: path
+                required: true
+                schema: 
+                    type: string
+            responses: 
+                '200': 
+                    description: Sunglasses Details
+                    content: 
+                        application/json: 
+                        
+    /sunglasses/oakley:
+    /sunglasses/ray-ban: 
+    /sunglasses/levis: 
+    /sunglasses/dkny: 
 produces:
     - 'application/json'
