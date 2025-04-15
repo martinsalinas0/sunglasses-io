@@ -4,8 +4,20 @@ info:
     title: 'E-Commerce API'
     description: 'API for managing brands, products, and user cart'
 host: 'localhost:3000'
+base path: '/api'
+
+tags: 
 schemes:
     - 'http'
-basePath: '/api'
+paths: 
+    /sunglasses:
+        get: 
+            tags: 
+            - 'store'
+    /sunglasses/brands
+    /sunglasses/oakley
+    /sunglasses/ray-ban
+    /sunglasses/levis
+    /sunglasses/dkny
 produces:
     - 'application/json'
