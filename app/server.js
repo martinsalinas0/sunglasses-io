@@ -39,10 +39,28 @@ server.on("error", (err) => {
 
 //get brands
 app.get('/api/brands', (request, response)=> { 
-	response.status(200).json({brands})
+	
+	try {
+		response.status(200).json({brands})
+	} catch (error) {
+		response.status(500).json({message: error.message})
+	}
+	
+	
+	
 }); 
 
-
+app.get('/api/brands/:/brandId/products', (req, res) => { 
+	try {
+		const {brandId} = req.params; 
+		const filteredProducts = products.filter(
+			(product) => product.id === brandId
+		)
+		res.status(200).json({products: filteredProducts})
+	} catch (error) {
+		
+	}
+})
 // POST /api/login
 // GET /api/me/cart
 // POST /api/me/cart
