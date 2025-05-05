@@ -7,21 +7,20 @@ chai.use(chaiHttp);
 
 // TODO: Write tests for the server
 
+
+///api/brands
 describe('Brands', () => {
   it('should get all brands', (done) => {
     chai.request(server)
       .get('/api/brands')
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a('object');
+        res.body.should.be.an('object');
         res.body.should.have.property('brands');
-        res.body.brands.should.be.a('array'); 
+        res.body.brands.should.be.an('array'); 
         
         done();
       });
   });
 });
 
-describe('Login', () => {});
-
-describe('Cart', () => {});

@@ -27,17 +27,20 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Starting the server
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`);
-});
+const server = app.listen(PORT, () => {
+	console.log(`Server connected. \nServer is now running on: ${PORT}`)
+})
 
+server.on("error", (err) => { 
+	console.error(`Error starting server: ${err.message}`); 
+	process.exit(1); 
+})
 
 
 //get brands
-app.get("/api/brands", (err, res) => { 
-	res.status(200).json({brands})
-
-})
+app.get('/api/brands', (request, response)=> { 
+	response.status(200).json({brands})
+}); 
 
 
 // POST /api/login
