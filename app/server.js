@@ -14,8 +14,6 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-
-
 const brandRoute = require("../routes/brands.route");
 const productsRoute = require("../routes/products.Route");
 const cartRoutes = require("../routes/cart.route");
@@ -26,8 +24,6 @@ app.use("/api", brandRoute);
 app.use("/api", productsRoute);
 app.use("/api/me", cartRoutes);
 app.use(router);
-
-
 
 const PORT = process.env.PORT || 3000;
 
@@ -45,4 +41,4 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-module.exports = app;  
+module.exports = app;
