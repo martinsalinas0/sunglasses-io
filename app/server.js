@@ -1,78 +1,48 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml'); // Replace './swagger.yaml' with the path to your Swagger file
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./sunglasses-api.yaml");
+const router = express.Router();
+require("dotenv").config();
+
 const app = express();
-const queryString = require('querystring')
+
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
+
+app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-app.use(express.json()); 
 
-// Importing the data from JSON files
-const users = require('../initial-data/users.json');
-const brands = require('../initial-data/brands.json');
-const products = require('../initial-data/products.json');
-const { totalmem } = require('os');
+const brandRoute = require("../routes/brands.route");
+const productsRoute = require("../routes/products.Route");
+const cartRoutes = require("../routes/cart.route");
+const { login } = require("../controllers/auth.controller");
 
-// Error handling
-app.use((err, req, res, next) => {
-	console.error(err.stack);
-	res.status(500).send('Something broke!');
-});
+app.post("/api/login", login);
+app.use("/api", brandRoute);
+app.use("/api", productsRoute);
+app.use("/api/me", cartRoutes);
+app.use(router);
 
-// Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Starting the server
+
 const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => {
-	console.log(`Server connected. \nServer is now running on: ${PORT}`)
-})
+  console.log(`Server connected. \nServer is now running on port: ${PORT}`);
+});
 
-server.on("error", (err) => { 
-	console.error(`Error starting server: ${err.message}`); 
-	process.exit(1); 
-})
+server.on("error", (err) => {
+  console.error(`Error starting server: ${err.message}`);
+  process.exit(1);
+});
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
-//get brands
-app.get('/api/brands', (request, response)=> { 
-	
-	try {
-		response.status(200).json({brands})
-	} catch (error) {
-		response.status(500).json({message: error.message})
-	}
-	
-	
-	
-}); 
-
-app.get('/api/brands/:/brandId/products', (req, res) => { 
-	try {
-		const {brandId} = req.params; 
-		const filteredProducts = products.filter(
-			(product) => product.id === brandId
-		)
-		res.status(200).json({products: filteredProducts})
-	} catch (error) {
-		
-	}
-})
-// POST /api/login
-// GET /api/me/cart
-// POST /api/me/cart
-// DELETE /api/me/cart/:productId
-// POST /api/me/cart/:productId
-
-
-
-
-module.exports = app;
-
-
-
-
-
+module.exports = app;  

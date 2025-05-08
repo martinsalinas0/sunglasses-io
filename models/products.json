@@ -84,7 +84,7 @@
       ]
     },
     {
-      "id": "8",
+      "id": "111",
       "brandId": "LBS-3190KV",
       "name": "Coke cans",
       "description": "The thickest glasses in the world",
@@ -100,7 +100,7 @@
       "brandId": "LBS-3190KV",
       "name": "Sugar",
       "description": "The sweetest glasses in the world",
-      "price": 125,
+      "price": 125, 
       "imageUrls": [
         "https://image.shutterstock.com/z/stock-photo-yellow-sunglasses-white-backgound-600820286.jpg",
         "https://image.shutterstock.com/z/stock-photo-yellow-sunglasses-white-backgound-600820286.jpg",

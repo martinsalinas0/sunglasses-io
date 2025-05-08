@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node app/server.js",
-    "test": "mocha ./test/*.js"
+    "test": "mocha ./test/*.js",
+    "dev": "nodemon app/server.js"
   },
   "keywords": [],
   "author": "",
